@@ -109,7 +109,7 @@ void encontrarCaminhoEuleriano(Grafo& g) {
 int main() {
     Grafo g;
     int numArestas;
-    std::cout << "--- Algoritmo de Hierholzer (Caminhos) ---" << std::endl;
+    std::cout << "|***** Algoritmo de Hierholzer (Caminhos) *****|" << std::endl;
     std::cout << "Digite o numero de arestas nao-direcionadas: ";
     std::cin >> numArestas;
 
