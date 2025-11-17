@@ -1,3 +1,4 @@
+//Flawbert Costa
 // Algoritmo de Hierholzer para encontrar ciclo Euleriano em grafos dígrafos
 #include <iostream>
 #include <map>

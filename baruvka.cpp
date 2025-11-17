@@ -1,3 +1,4 @@
+//Flawbert Costa
 //Algoritmo de Boruvka para encontrar AGM em um grafo ponderado e não-direcionado
 #include <iostream>
 #include <vector>

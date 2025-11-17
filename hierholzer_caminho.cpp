@@ -1,4 +1,5 @@
- //Algoritmo de Hierholzer para caminho Euleriano em grafos não-direcionados
+//Flawbert Costa
+//Algoritmo de Hierholzer para caminho Euleriano em grafos não-direcionados
 #include <iostream>
 #include <map>
 #include <set> // multiset será usado para armazenar arestas
@@ -11,9 +12,9 @@
 struct Grafo {
     // Usamos 'multiset' para que tenha uma remoção eficiente (O(logN)) de uma aresta específica
     std::map<int, std::multiset<int>> adj;
-    std::map<int, int> degree; //esse mapa verifica a condição do caminho euleriano
+    std::map<int, int> grau; //esse mapa verifica a condição do caminho euleriano
     
-    std::vector<int> nodes;//listas de todos vértices
+    std::vector<int> vertices;//listas de todos vértices
     int vComecoPadrao = -1;
 
     /**
@@ -21,31 +22,31 @@ struct Grafo {
      * @param u Vértice 1.
      * @param v Vértice 2.
      */
-    void addEdge(int u, int v) {
+    void adcAresta(int u, int v) {
         adj[u].insert(v);
         adj[v].insert(u);
         
-        degree[u]++;
-        degree[v]++;
+        grau[u]++;
+        grau[v]++;
         
-        //Define o primeiro nó adicionado como padrão
+        //Define o primeiro vértice adicionado como padrão
         if (vComecoPadrao == -1) vComecoPadrao = u;
 
-        if (std::find(nodes.begin(), nodes.end(), u) == nodes.end()) nodes.push_back(u);
-        if (std::find(nodes.begin(), nodes.end(), v) == nodes.end()) nodes.push_back(v);
+        if (std::find(vertices.begin(), vertices.end(), u) == vertices.end()) vertices.push_back(u);
+        if (std::find(vertices.begin(), vertices.end(), v) == vertices.end()) vertices.push_back(v);
     }
 
     /**
-     * @brief Encontra o nó inicial para o caminho Euleriano.
+     * @brief Encontra o vértice inicial para o caminho Euleriano.
      * @desc Um grafo não-direcionado conectado tem um caminho euleriano
      * se tiver 0 ou 2 vértices de grau ímpar.
-     * @return O nó inicial, ou -1 se não houver caminho.
+     * @return O vértice inicial, ou -1 se não houver caminho.
      */
     int encontraVerticeInicial() {
         int verticeGrauImpar = 0;
-        int verticeInicial = vComecoPadrao; //começa no primeiro nó adicionado (se for ciclo)
-        for (int node : nodes) {
-            if (degree[node] % 2 != 0) {
+        int verticeInicial = vComecoPadrao; //começa no primeiro vértice adicionado (se for ciclo)
+        for (int node : vertices) {
+            if (grau[node] % 2 != 0) {
                 verticeGrauImpar++;
                 verticeInicial = node; //Se for caminho, este será o início
             }
@@ -72,7 +73,7 @@ struct Grafo {
  * @saida Esperada: Imprime a sequência de vértices que formam o caminho euleriano.
  */
 void encontrarCaminhoEuleriano(Grafo& g) {
-    // 1. Encontra o nó inicial
+    // 1. Encontra o vértice inicial
     int verticeInicial = g.encontraVerticeInicial();
     if (verticeInicial == -1) {
         return;
@@ -117,7 +118,7 @@ int main() {
     for (int i = 0; i < numArestas; ++i) {
         int u, v;
         std::cin >> u >> v;
-        g.addEdge(u, v);
+        g.adcAresta(u, v);
     }
     
     encontrarCaminhoEuleriano(g);
